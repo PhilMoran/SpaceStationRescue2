@@ -3,6 +3,7 @@
 #define GAME
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 
 class Game
 {
@@ -43,7 +44,7 @@ private:
 	sf::Clock clock;
 	float accceleration = 0;
 	sf::Time elapsed1;
-
+	sf::Vector2i centre;
 };
 
 #endif // !GAME
