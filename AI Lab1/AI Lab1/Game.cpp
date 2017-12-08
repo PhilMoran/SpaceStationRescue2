@@ -154,6 +154,7 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
+	level.Draw(&m_window);
 	m_window.draw(playerSprite);
 	m_window.display();
 }
@@ -163,7 +164,7 @@ void Game::render()
 /// </summary>
 void Game::LoadTextures()
 {
-	if (!playerTexture.loadFromFile("ASSETS\\IMAGES\\PLAYER.png"))
+	if (!playerTexture.loadFromFile("ASSETS\\IMAGES\\Player.png"))
 	{
 		// error...
 	}

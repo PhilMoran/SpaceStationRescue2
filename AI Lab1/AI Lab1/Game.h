@@ -3,6 +3,7 @@
 #define GAME
 
 #include <SFML/Graphics.hpp>
+#include "Level.h"
 
 class Game
 {
@@ -43,6 +44,8 @@ private:
 	sf::Clock clock;
 	float accceleration = 0;
 	sf::Time elapsed1;
+
+	Level level;
 
 };
 
