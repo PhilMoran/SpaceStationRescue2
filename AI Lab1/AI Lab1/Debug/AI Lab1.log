@@ -1,14 +1,1 @@
-﻿  Wall.cpp
-  main.cpp
-  Level.cpp
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\level.cpp(23): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\level.cpp(28): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\level.cpp(45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\level.cpp(50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Game.cpp
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\game.cpp(80): warning C4305: '+=': truncation from 'double' to 'float'
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\game.cpp(90): warning C4305: '-=': truncation from 'double' to 'float'
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\game.cpp(130): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Floor.cpp
-  Generating Code...
-  AI Lab1.vcxproj -> C:\Users\gameuser\Desktop\SpaceStationRescue2\AI Lab1\Debug\AI Lab1.exe
+﻿  AI Lab1.vcxproj -> C:\Users\gameuser\Desktop\SpaceStationRescue2\AI Lab1\Debug\AI Lab1.exe
