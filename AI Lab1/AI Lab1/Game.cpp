@@ -8,7 +8,7 @@
 using namespace std;
 
 Game::Game() :
-	m_window{ sf::VideoMode::getDesktopMode(), "SpaceStationRescue2" ,sf::Style::Fullscreen },
+	m_window{ sf::VideoMode(1280,1280), "SpaceStationRescue2" },
 	m_exitGame{false} //when true game will exit
 {
 	LoadTextures(); // load font 
@@ -154,6 +154,11 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
+
+	sf::View MyView;
+	MyView.setCenter(playerSprite.getPosition().x, playerSprite.getPosition().y);
+	m_window.setView(MyView);
+
 	level.Draw(&m_window);
 	m_window.draw(playerSprite);
 	m_window.display();
@@ -177,7 +182,10 @@ void Game::LoadSprites()
 {
 	
 	playerSprite.setTexture(playerTexture);
-	playerSprite.setPosition(1000, 1300.0f);
+	playerSprite.setOrigin(playerSprite.getLocalBounds().width / 2, playerSprite.getLocalBounds().height / 2);
+	playerSprite.setPosition(0, 0);
+	playerSprite.setScale(0.2, 0.2);
+
 }
 
 sf::Vector2f Game::normalize(sf::Vector2f & source)
