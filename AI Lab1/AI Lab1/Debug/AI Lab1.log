@@ -2,5 +2,6 @@
 c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\game.cpp(80): warning C4305: '+=': truncation from 'double' to 'float'
 c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\game.cpp(90): warning C4305: '-=': truncation from 'double' to 'float'
 c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\game.cpp(131): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\game.cpp(190): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\game.cpp(189): warning C4305: 'argument': truncation from 'double' to 'float'
+  LINK : C:\Users\gameuser\Desktop\SpaceStationRescue2\AI Lab1\Debug\AI Lab1.exe not found or not built by the last incremental link; performing full link
   AI Lab1.vcxproj -> C:\Users\gameuser\Desktop\SpaceStationRescue2\AI Lab1\Debug\AI Lab1.exe

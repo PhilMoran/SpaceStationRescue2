@@ -160,7 +160,6 @@ void Game::render()
 	MyView.setCenter(playerSprite.getPosition().x, playerSprite.getPosition().y);
 	m_window.setView(MyView);
 
-	m_window.draw(groundSprite);
 	m_window.draw(playerSprite);
 	
 	m_window.display();
