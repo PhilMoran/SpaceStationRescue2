@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Level.h"
+#include "Worker.h"
 
 class Game
 {
@@ -46,6 +47,7 @@ private:
 	sf::Time elapsed1;
 
 	Level level;
+	Worker *workerOne = new Worker(Vector2f(10, 10));
 
 };
 

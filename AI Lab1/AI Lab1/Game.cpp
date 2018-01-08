@@ -13,6 +13,7 @@ Game::Game() :
 {
 	LoadTextures(); // load font 
 	LoadSprites(); // load texture
+	
 }
 
 
@@ -38,6 +39,7 @@ void Game::run()
 			update(timePerFrame); //60 fps
 		}
 		render(); // as many as possible
+		workerOne->Wander(50);
 	}
 }
 /// <summary>
@@ -160,6 +162,7 @@ void Game::render()
 	m_window.setView(MyView);
 
 	level.Draw(&m_window);
+	workerOne->Draw(m_window);
 	m_window.draw(playerSprite);
 	m_window.display();
 }
