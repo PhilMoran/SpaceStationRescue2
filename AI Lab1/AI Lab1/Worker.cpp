@@ -2,10 +2,11 @@
 
 Worker::Worker()
 {
-
+	
 }
 Worker::Worker(sf::Vector2f position)
 {
+	
 	workerPos = position;
 	m_workerSprite.setPosition(workerPos);
 
@@ -18,64 +19,100 @@ Worker::Worker(sf::Vector2f position)
 Worker::~Worker()
 {
 }
-void Worker::Load(Texture& _FloorTexture)
+void Worker::Load()
 {
+	
 	m_workerSprite.setTexture(m_workerTexture);
-	m_workerSprite.setScale(0.2, 0.2);
+	m_workerSprite.setOrigin(29, 52);
+
+	
+	
 }
 
 void Worker::Draw(RenderWindow& _window)
 {
-	Load(m_workerTexture);
-	_window.draw(m_workerSprite);
-}
-void Worker::Wander(int wall)
-{
-	Vector2f adjustment = Vector2f(0,0);
-	if (m_workerSprite.getGlobalBounds().left < wall)
+	
+	if (alive == true)
 	{
-		int distance = wall - m_workerSprite.getGlobalBounds().left;
-		adjustment.x = distance;
-	}
-	else if (m_workerSprite.getGlobalBounds().width >(1080 - wall))
-	{
-		int distance = (1080 - wall) - m_workerSprite.getGlobalBounds().width;
-		adjustment.x = distance;
-	}
-	if (m_workerSprite.getGlobalBounds().top < wall)
-	{
-		int distance = wall - m_workerSprite.getGlobalBounds().top;
-		adjustment.y = distance;
-	}
-	else if (m_workerSprite.getGlobalBounds().height >(1920 - wall))
-	{
-		int distance = (1920 - wall) - m_workerSprite.getGlobalBounds().height;
-		adjustment.y = distance;
-	}
+		_window.draw(m_workerSprite);
 
-	if (adjustment != Vector2f(0,0))
-	{
-		m_workerSprite.move(m_workerSprite.getPosition() + adjustment);
-
-		m_workerSprite.setRotation((float)atan2(0.1,0.1));
-		deltaangle *= -1;
-		nextangle = m_workerSprite.getRotation() + deltaangle;
-	}
-	else if (abs(m_workerSprite.getRotation() - nextangle) < 0.1f)
-	{
-		deltaangle *= -1;
-		nextangle = m_workerSprite.getRotation() + deltaangle;
 	}
 	
-	else
+	
+	
+}
+void Worker::Collected(Sprite & Player)
+{
+	if (alive == true)
 	{
-		m_workerSprite.setRotation(m_workerSprite.getRotation()+ 0.01f * (nextangle - m_workerSprite.getRotation()));
-		m_workerSprite.move(Vector2f(10 * (float)cos(m_workerSprite.getRotation()),10 * (float)sin(m_workerSprite.getRotation())));
+		if (m_workerSprite.getPosition().x < Player.getPosition().x + Player.getGlobalBounds().width &&
+			m_workerSprite.getPosition().x + m_workerSprite.getGlobalBounds().width > Player.getPosition().x &&
+			m_workerSprite.getPosition().y < Player.getPosition().y + Player.getGlobalBounds().height &&
+			m_workerSprite.getGlobalBounds().height + m_workerSprite.getPosition().y > Player.getPosition().y)
+		{
+			alive = false;
+			collected++;
+		}
+		
+	}
+	
+}
+void Worker::Wander()
+{
+	if (alive == true)
+	{
+		sf::Time wanderClock = clock.getElapsedTime();
+
+		Vector2f WorkerPosition = m_workerSprite.getPosition();
+		Vector2f WanderVelocity = Vector2f(0, 0);
+
+		float maxSpeed = 0.2f;
+
+		WorkerPosition = WorkerPosition + WanderVelocity;
+		WanderVelocity = normalize(WanderPos - WorkerPosition) * maxSpeed;
+		float rotation = m_workerSprite.getRotation();
+
+		if (maxSpeed > 0)
+		{
+			rotation = atan2f(WanderVelocity.x, -WanderVelocity.y);
+			rotation = RadsToDegrees(rotation);
+		}
+
+
+		if (wanderClock.asSeconds() >= 3)
+		{
+			WanderPos.x = WorkerPosition.x + 500 * cos(rand());
+			WanderPos.y = WorkerPosition.y + 500 * cos(rand());
+			clock.restart();
+		}
+		float distance = sqrt((WorkerPosition.x - WanderPos.x) * 2 + (WorkerPosition.y - WanderPos.y) * 2);
+		if (distance < 1 || WorkerPosition.y < 180 || WorkerPosition.x < 180 || WorkerPosition.x > 3615 || WorkerPosition.y >2070)
+		{
+			WanderPos.x = WorkerPosition.x + 500 * cos(rand());
+			WanderPos.y = WorkerPosition.y + 500 * cos(rand());
+			clock.restart();
+		}
+		m_workerSprite.setRotation(rotation);
+		m_workerSprite.move(WanderVelocity); 
 	}
 }
-float Worker::rand_FloatRange(float a)
+float Worker::rand_FloatRange(float a, float b)
 {
 	float c;
-	c = rand() % (int)a;
+	c = rand() % (int)a + (-(int)b);
 	return c;
+	
+}
+float Worker::RadsToDegrees(float rads)
+{
+	float degs = rads * 180 / 3.14;
+	return degs;
+}
+sf::Vector2f Worker::normalize(sf::Vector2f & source)
+{
+	float length = sqrt((source.x * source.x) + (source.y * source.y));
+	if (length != 0)
+		return sf::Vector2f(source.x / length, source.y / length);
+	else
+		return source;
 }

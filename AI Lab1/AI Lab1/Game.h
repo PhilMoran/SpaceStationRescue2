@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include "Level.h"
 #include "Worker.h"
+#include "Predator.h"
+#include "Sweeper.h"
 
 class Game
 {
@@ -23,6 +25,7 @@ private:
 	void render();
 	void AIMovement();
 	void Seek();
+	void checkAIAlive();
 	void Flee();
 	void PlayerMovement();
 	void LoadTextures();
@@ -45,10 +48,20 @@ private:
 	sf::Clock clock;
 	float accceleration = 0;
 	sf::Time elapsed1;
+	sf::Font workerFont;
+	sf::Text workerText;
+
+	int workerNum = 0;
 
 	Level level;
-	Worker *workerOne = new Worker(Vector2f(10, 10));
-
+	Worker *workerOne = new Worker(Vector2f(300, 300));
+	Worker *workerTwo = new Worker(Vector2f(350, 1950));
+	Worker *workerThree = new Worker(Vector2f(3600, 1870));
+	Worker *workerFour = new Worker(Vector2f(3600, 300));
+	Worker *workerFive = new Worker(Vector2f(1970, 1170));
+	Predator *predOne = new Predator(Vector2f(0, 0));
+	Sweeper *sweepOne = new Sweeper(Vector2f(800, 300));
+	
 };
 
 #endif // !GAME

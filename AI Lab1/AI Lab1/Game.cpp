@@ -29,8 +29,10 @@ void Game::run()
 	sf::Time timePerFrame = sf::seconds(1.f / 60.f); // 60 fps
 	while (m_window.isOpen())
 	{
+				
 		PlayerMovement();
 		processEvents(); // as many as possible
+
 		timeSinceLastUpdate += clock.restart();
 		while (timeSinceLastUpdate > timePerFrame)
 		{
@@ -39,7 +41,9 @@ void Game::run()
 			update(timePerFrame); //60 fps
 		}
 		render(); // as many as possible
-		workerOne->Wander(50);
+		checkAIAlive();
+		
+
 	}
 }
 /// <summary>
@@ -127,12 +131,10 @@ void Game::PlayerMovement()
 	{
 		playerSprite.setPosition(4000, playerSprite.getPosition().y);
 	}
-	playerSprite.setOrigin(305, 165);
 
 	playerSprite.move(sin(playerSprite.getRotation()*3.14159265 / 180)*playerVelocity.x, -cos(playerSprite.getRotation()*3.14159265 / 180)*playerVelocity.x);
 
 	
-	std::cout << playerVelocity.x << std::endl;
 	
 
 	//Sprite.Move (0, -100 * ElapsedTime);
@@ -160,11 +162,23 @@ void Game::render()
 	sf::View MyView;
 	MyView.setCenter(playerSprite.getPosition().x, playerSprite.getPosition().y);
 	m_window.setView(MyView);
+	
 
 	level.Draw(&m_window);
 	workerOne->Draw(m_window);
+	workerTwo->Draw(m_window);
+	workerThree->Draw(m_window);
+	workerFour->Draw(m_window);
+	workerFive->Draw(m_window);
+
+	predOne->Draw(m_window);
+
+	sweepOne->Draw(m_window);
+
 	m_window.draw(playerSprite);
+	m_window.draw(workerText);
 	m_window.display();
+	
 }
 
 /// <summary>
@@ -176,6 +190,17 @@ void Game::LoadTextures()
 	{
 		// error...
 	}
+	if (!workerFont.loadFromFile("Rumble Brave.otf"))
+	{
+		cout << "ERRRRRROR" << endl;
+	}
+	
+	workerText.setFont(workerFont);
+	workerText.setCharacterSize(72);
+	workerText.setFillColor(Color::Red);
+	// set the text style
+	workerText.setStyle(sf::Text::Bold);
+
 }
 
 /// <summary>
@@ -183,14 +208,82 @@ void Game::LoadTextures()
 /// </summary>
 void Game::LoadSprites()
 {
-	
+
+	workerOne->Load();
+	workerTwo->Load();
+	workerThree->Load();
+	workerFour->Load();
+	workerFive->Load();
+
+	predOne->Load();
+
+	sweepOne->Load();
+
 	playerSprite.setTexture(playerTexture);
-	playerSprite.setOrigin(playerSprite.getLocalBounds().width / 2, playerSprite.getLocalBounds().height / 2);
-	playerSprite.setPosition(0, 0);
-	playerSprite.setScale(0.2, 0.2);
+	playerSprite.setOrigin(65,49);
+	playerSprite.setPosition(600, 600);
 
 }
+void Game::checkAIAlive()
+{
+	if (workerOne->alive == true)
+	{
+		workerOne->Wander();
+		workerOne->Collected(playerSprite);
+		sweepOne->CollectWorker(workerOne);
 
+		if (workerOne->alive == false)
+		{
+			workerNum++;
+		}
+	}
+
+	if (workerTwo->alive == true)
+	{
+		workerTwo->Wander();
+		workerTwo->Collected(playerSprite);
+
+		if (workerTwo->alive == false)
+		{
+			workerNum++;
+		}
+	}
+
+	if (workerThree->alive == true)
+	{
+		workerThree->Wander();
+		workerThree->Collected(playerSprite);
+
+		if (workerThree->alive == false)
+		{
+			workerNum++;
+		}
+	}
+	if (workerFour->alive == true)
+	{
+		workerFour->Wander();
+		workerFour->Collected(playerSprite);
+		if (workerFour->alive == false)
+		{
+			workerNum++;
+		}
+	}
+	if (workerFive->alive == true)
+	{
+		workerFive->Wander();
+		workerFive->Collected(playerSprite);
+		if (workerFive->alive == false)
+		{
+			workerNum++;
+		}
+
+	}
+	predOne->Seek(playerSprite);
+	sweepOne->Wander();
+	
+	workerText.setString("Workers Rescued = " + std::to_string(workerNum)+"/5");
+	workerText.setPosition(playerSprite.getPosition().x - 300, playerSprite.getPosition().y - 500);
+}
 sf::Vector2f Game::normalize(sf::Vector2f & source)
 {
 	float length = sqrt((source.x * source.x) + (source.y * source.y));
