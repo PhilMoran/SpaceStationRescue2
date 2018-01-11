@@ -11,7 +11,7 @@ Floor::Floor(sf::Vector2f position)
 	m_FloorSprite.setTextureRect(m_FloorSource);
 	m_FloorSprite.setPosition(m_FloorPosition);
 
-	if (!m_FloorTexture.loadFromFile("ASSETS\\IMAGES\\tempFloor.png"))
+	if (!m_FloorTexture.loadFromFile("ASSETS\\IMAGES\\newGround.png"))
 	{
 			// error...
 	}

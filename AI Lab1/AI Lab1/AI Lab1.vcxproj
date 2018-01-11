@@ -23,8 +23,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Predator.cpp" />
-    <ClCompile Include="Sweeper.cpp" />
+    <ClCompile Include="Nest.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
@@ -32,8 +31,7 @@
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="Predator.h" />
-    <ClInclude Include="Sweeper.h" />
+    <ClInclude Include="Nest.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Worker.h" />
   </ItemGroup>

@@ -1,8 +1,8 @@
-﻿  Sweeper.cpp
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\sweeper.cpp(92): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\sweeper.cpp(93): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\sweeper.cpp(99): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\sweeper.cpp(100): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\sweeper.cpp(152): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\gameuser\desktop\spacestationrescue2\ai lab1\ai lab1\sweeper.cpp(158): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  AI Lab1.vcxproj -> C:\Users\gameuser\Desktop\SpaceStationRescue2\AI Lab1\Debug\AI Lab1.exe
+﻿  Nest.cpp
+c:\users\gameuser\documents\ai_space\spacestationrescue2\ai lab1\ai lab1\nest.cpp(45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\gameuser\documents\ai_space\spacestationrescue2\ai lab1\ai lab1\nest.cpp(64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\gameuser\documents\ai_space\spacestationrescue2\ai lab1\ai lab1\nest.cpp(80): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\gameuser\documents\ai_space\spacestationrescue2\ai lab1\ai lab1\nest.cpp(85): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+c:\users\gameuser\documents\ai_space\spacestationrescue2\ai lab1\ai lab1\nest.cpp(86): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+  AI Lab1.vcxproj -> C:\Users\gameuser\Documents\AI_Space\SpaceStationRescue2\AI Lab1\Debug\AI Lab1.exe
+  AI Lab1.vcxproj -> C:\Users\gameuser\Documents\AI_Space\SpaceStationRescue2\AI Lab1\Debug\AI Lab1.pdb (Partial PDB)

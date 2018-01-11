@@ -42,10 +42,7 @@
     <ClCompile Include="Worker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Predator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sweeper.cpp">
+    <ClCompile Include="Nest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,10 +62,7 @@
     <ClInclude Include="Worker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Predator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sweeper.h">
+    <ClInclude Include="Nest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

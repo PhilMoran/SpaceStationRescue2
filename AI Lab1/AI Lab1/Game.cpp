@@ -29,10 +29,9 @@ void Game::run()
 	sf::Time timePerFrame = sf::seconds(1.f / 60.f); // 60 fps
 	while (m_window.isOpen())
 	{
-				
 		PlayerMovement();
+		nest->Update(playerSprite);
 		processEvents(); // as many as possible
-
 		timeSinceLastUpdate += clock.restart();
 		while (timeSinceLastUpdate > timePerFrame)
 		{
@@ -41,9 +40,7 @@ void Game::run()
 			update(timePerFrame); //60 fps
 		}
 		render(); // as many as possible
-		checkAIAlive();
-		
-
+		workerOne->Wander(50);
 	}
 }
 /// <summary>
@@ -99,7 +96,6 @@ void Game::processEvents()
 					playerVelocity.x = -1.0f;
 				}
 			}
-
 		}
 		
 	}
@@ -115,7 +111,7 @@ void Game::Flee()
 }
 void Game::PlayerMovement()
 {
-	if (playerSprite.getPosition().y <-500)
+	if (playerSprite.getPosition().y < -500)
 	{
 		playerSprite.setPosition(playerSprite.getPosition().x, 2200);
 	}
@@ -131,15 +127,18 @@ void Game::PlayerMovement()
 	{
 		playerSprite.setPosition(4000, playerSprite.getPosition().y);
 	}
+	playerSprite.setOrigin(305, 165);
 
 	playerSprite.move(sin(playerSprite.getRotation()*3.14159265 / 180)*playerVelocity.x, -cos(playerSprite.getRotation()*3.14159265 / 180)*playerVelocity.x);
 
 	
+	//std::cout << playerVelocity.x << std::endl;
 	
 
 	//Sprite.Move (0, -100 * ElapsedTime);
 	
 }
+
 /// <summary>
 /// Update the game world
 /// </summary>
@@ -161,25 +160,15 @@ void Game::render()
 
 	sf::View MyView;
 	MyView.setCenter(playerSprite.getPosition().x, playerSprite.getPosition().y);
-	//MyView.zoom(2);
 	m_window.setView(MyView);
-	
 
 	level.Draw(&m_window);
+
+	nest->Draw(m_window);
+
 	workerOne->Draw(m_window);
-	workerTwo->Draw(m_window);
-	workerThree->Draw(m_window);
-	workerFour->Draw(m_window);
-	workerFive->Draw(m_window);
-
-	predOne->Draw(m_window);
-
-	sweepOne->Draw(m_window);
-
 	m_window.draw(playerSprite);
-	m_window.draw(workerText);
 	m_window.display();
-	
 }
 
 /// <summary>
@@ -191,17 +180,6 @@ void Game::LoadTextures()
 	{
 		// error...
 	}
-	if (!workerFont.loadFromFile("Rumble Brave.otf"))
-	{
-		cout << "ERRRRRROR" << endl;
-	}
-	
-	workerText.setFont(workerFont);
-	workerText.setCharacterSize(72);
-	workerText.setFillColor(Color::Red);
-	// set the text style
-	workerText.setStyle(sf::Text::Bold);
-
 }
 
 /// <summary>
@@ -209,110 +187,14 @@ void Game::LoadTextures()
 /// </summary>
 void Game::LoadSprites()
 {
-
-	workerOne->Load();
-	workerTwo->Load();
-	workerThree->Load();
-	workerFour->Load();
-	workerFive->Load();
-
-	predOne->Load();
-
-	sweepOne->Load();
-
+	
 	playerSprite.setTexture(playerTexture);
-	playerSprite.setOrigin(65,49);
-	playerSprite.setPosition(600, 600);
+	playerSprite.setOrigin(playerSprite.getLocalBounds().width / 2, playerSprite.getLocalBounds().height / 2);
+	playerSprite.setPosition(300, 300);
+	playerSprite.setScale(0.2, 0.2);
 
 }
-void Game::checkAIAlive()
-{
-	if (workerOne->alive == true)
-	{
-		workerOne->Wander();
-		workerOne->Collected(playerSprite);
-		if (sweepOne->Distance(workerOne->m_workerSprite.getPosition().x, workerOne->m_workerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y) < 400 && sweepOne->empty == true)
-		{
-			sweepOne->sweepingArea = true;
-			sweepOne->CollectWorker(workerOne);
-		}
 
-		if (workerOne->alive == false)
-		{
-			workerNum++;
-		}
-	}
-
-	if (workerTwo->alive == true)
-	{
-		workerTwo->Wander();
-		workerTwo->Collected(playerSprite);
-		if (sweepOne->Distance(workerTwo->m_workerSprite.getPosition().x, workerTwo->m_workerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y) < 400 && sweepOne->empty == true)
-		{
-			sweepOne->sweepingArea = true;
-			sweepOne->CollectWorker(workerTwo);
-		}
-		if (workerTwo->alive == false)
-		{
-			workerNum++;
-		}
-	}
-
-	if (workerThree->alive == true)
-	{
-		workerThree->Wander();
-		workerThree->Collected(playerSprite);
-		if (sweepOne->Distance(workerThree->m_workerSprite.getPosition().x, workerThree->m_workerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y) < 400 && sweepOne->empty == true)
-		{
-			sweepOne->sweepingArea = true;
-			sweepOne->CollectWorker(workerThree);
-		}
-		if (workerThree->alive == false)
-		{
-			workerNum++;
-		}
-	}
-	if (workerFour->alive == true)
-	{
-		workerFour->Wander();
-		workerFour->Collected(playerSprite);
-		if (sweepOne->Distance(workerFour->m_workerSprite.getPosition().x, workerFour->m_workerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y) < 400&& sweepOne->empty == true)
-		{
-			sweepOne->sweepingArea = true;
-			sweepOne->CollectWorker(workerFour);
-		}
-		if (workerFour->alive == false)
-		{
-			workerNum++;
-		}
-	}
-	if (workerFive->alive == true)
-	{
-		workerFive->Wander();
-		workerFive->Collected(playerSprite);
-		if (sweepOne->Distance(workerFive->m_workerSprite.getPosition().x, workerFive->m_workerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y) < 400 && sweepOne->empty == true)
-		{
-			sweepOne->sweepingArea = true;
-			sweepOne->CollectWorker(workerFive);
-		}
-		if (workerFive->alive == false)
-		{
-			workerNum++;
-		}
-
-	}
-	if (sweepOne->Distance(playerSprite.getPosition().x, playerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y)<300)
-	{
-		sweepOne->Flee(playerSprite);
-	}
-	else if (sweepOne->sweepingArea == false && sweepOne->Distance(playerSprite.getPosition().x, playerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y)>300)
-	{
-		sweepOne->Wander();
-	}
-	predOne->Seek(playerSprite);
-	workerText.setString("Workers Rescued = " + std::to_string(workerNum)+"/5");
-	workerText.setPosition(playerSprite.getPosition().x - 300, playerSprite.getPosition().y - 500);
-}
 sf::Vector2f Game::normalize(sf::Vector2f & source)
 {
 	float length = sqrt((source.x * source.x) + (source.y * source.y));
