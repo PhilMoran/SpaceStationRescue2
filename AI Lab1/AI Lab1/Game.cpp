@@ -161,6 +161,7 @@ void Game::render()
 
 	sf::View MyView;
 	MyView.setCenter(playerSprite.getPosition().x, playerSprite.getPosition().y);
+	//MyView.zoom(2);
 	m_window.setView(MyView);
 	
 
@@ -230,7 +231,11 @@ void Game::checkAIAlive()
 	{
 		workerOne->Wander();
 		workerOne->Collected(playerSprite);
-		sweepOne->CollectWorker(workerOne);
+		if (sweepOne->Distance(workerOne->m_workerSprite.getPosition().x, workerOne->m_workerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y) < 400 && sweepOne->empty == true)
+		{
+			sweepOne->sweepingArea = true;
+			sweepOne->CollectWorker(workerOne);
+		}
 
 		if (workerOne->alive == false)
 		{
@@ -242,7 +247,11 @@ void Game::checkAIAlive()
 	{
 		workerTwo->Wander();
 		workerTwo->Collected(playerSprite);
-
+		if (sweepOne->Distance(workerTwo->m_workerSprite.getPosition().x, workerTwo->m_workerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y) < 400 && sweepOne->empty == true)
+		{
+			sweepOne->sweepingArea = true;
+			sweepOne->CollectWorker(workerTwo);
+		}
 		if (workerTwo->alive == false)
 		{
 			workerNum++;
@@ -253,7 +262,11 @@ void Game::checkAIAlive()
 	{
 		workerThree->Wander();
 		workerThree->Collected(playerSprite);
-
+		if (sweepOne->Distance(workerThree->m_workerSprite.getPosition().x, workerThree->m_workerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y) < 400 && sweepOne->empty == true)
+		{
+			sweepOne->sweepingArea = true;
+			sweepOne->CollectWorker(workerThree);
+		}
 		if (workerThree->alive == false)
 		{
 			workerNum++;
@@ -263,6 +276,11 @@ void Game::checkAIAlive()
 	{
 		workerFour->Wander();
 		workerFour->Collected(playerSprite);
+		if (sweepOne->Distance(workerFour->m_workerSprite.getPosition().x, workerFour->m_workerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y) < 400&& sweepOne->empty == true)
+		{
+			sweepOne->sweepingArea = true;
+			sweepOne->CollectWorker(workerFour);
+		}
 		if (workerFour->alive == false)
 		{
 			workerNum++;
@@ -272,15 +290,26 @@ void Game::checkAIAlive()
 	{
 		workerFive->Wander();
 		workerFive->Collected(playerSprite);
+		if (sweepOne->Distance(workerFive->m_workerSprite.getPosition().x, workerFive->m_workerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y) < 400 && sweepOne->empty == true)
+		{
+			sweepOne->sweepingArea = true;
+			sweepOne->CollectWorker(workerFive);
+		}
 		if (workerFive->alive == false)
 		{
 			workerNum++;
 		}
 
 	}
+	if (sweepOne->Distance(playerSprite.getPosition().x, playerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y)<300)
+	{
+		sweepOne->Flee(playerSprite);
+	}
+	else if (sweepOne->sweepingArea == false && sweepOne->Distance(playerSprite.getPosition().x, playerSprite.getPosition().y, sweepOne->sweepSprite.getPosition().x, sweepOne->sweepSprite.getPosition().y)>300)
+	{
+		sweepOne->Wander();
+	}
 	predOne->Seek(playerSprite);
-	sweepOne->Wander();
-	
 	workerText.setString("Workers Rescued = " + std::to_string(workerNum)+"/5");
 	workerText.setPosition(playerSprite.getPosition().x - 300, playerSprite.getPosition().y - 500);
 }

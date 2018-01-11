@@ -60,7 +60,7 @@ private:
 	Worker *workerFour = new Worker(Vector2f(3600, 300));
 	Worker *workerFive = new Worker(Vector2f(1970, 1170));
 	Predator *predOne = new Predator(Vector2f(0, 0));
-	Sweeper *sweepOne = new Sweeper(Vector2f(800, 300));
+	Sweeper *sweepOne = new Sweeper(Vector2f(1500, 300));
 	
 };
 

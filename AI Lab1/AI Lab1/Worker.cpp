@@ -57,6 +57,7 @@ void Worker::Collected(Sprite & Player)
 	}
 	
 }
+
 void Worker::Wander()
 {
 	if (alive == true)

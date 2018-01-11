@@ -47,8 +47,9 @@ void Sweeper::Draw(RenderWindow& _window)
 }
 void Sweeper::CollectWorker(Worker* Worker)
 {
-	if (alive == true)
+	if (empty == true)
 	{
+		Seek(Worker);
 		if (sweepSprite.getPosition().x < Worker->m_workerSprite.getPosition().x + Worker->m_workerSprite.getGlobalBounds().width &&
 			sweepSprite.getPosition().x + sweepSprite.getGlobalBounds().width > Worker->m_workerSprite.getPosition().x &&
 			sweepSprite.getPosition().y < Worker->m_workerSprite.getPosition().y + Worker->m_workerSprite.getGlobalBounds().height &&
@@ -56,8 +57,12 @@ void Sweeper::CollectWorker(Worker* Worker)
 		{
 			sweepSprite.setTexture(sweepFullTex);
 			Worker->alive = false;
+			empty = false;
+			sweepingArea = false;
 		}
 	}
+
+
 
 }
 void Sweeper::Wander()
@@ -99,6 +104,48 @@ void Sweeper::Wander()
 		sweepSprite.move(WanderVelocity);
 	}
 }
+void Sweeper::Seek(Worker * Worker)
+{
+	sf::Vector2f seekPosition = sweepSprite.getPosition();
+	sf::Vector2f desired_velocity;
+	//sweepSprite.setOrigin(65, 115);
+	float maxSpeed = 0.2f;
+	float maxForce = 3.0f;
+
+	seekPosition = seekPosition + sweepVelocity;
+	sweepVelocity = normalize(Worker->m_workerSprite.getPosition() - seekPosition) * maxSpeed;
+	float rotation = sweepSprite.getRotation();
+
+	if (maxSpeed > 0)
+	{
+		rotation = atan2f(sweepVelocity.x, -sweepVelocity.y);
+		rotation = RadsToDegrees(rotation);
+	}
+
+	sweepSprite.setRotation(rotation);
+	sweepSprite.move(sweepVelocity);
+}
+void Sweeper::Flee(Sprite Player)
+{
+	sf::Vector2f fleePosition = sweepSprite.getPosition();
+
+	float maxSpeed = 0.2f;
+	float maxForce = 3.0f;
+	float rotation = Player.getRotation();
+
+	fleePosition = fleePosition + sweepVelocity;
+	sweepVelocity = normalize(Player.getPosition() + fleePosition) * maxSpeed;
+	//steering = Player.getRotation() + maxSpeed;
+
+	if (maxSpeed > 0)
+	{
+		rotation = atan2f(sweepVelocity.x, -sweepVelocity.y);
+		rotation = RadsToDegrees(rotation);
+	}
+
+	sweepSprite.setRotation(rotation);
+	sweepSprite.move(sweepVelocity);
+}
 float Sweeper::rand_FloatRange(float a, float b)
 {
 	float c;
@@ -118,4 +165,9 @@ sf::Vector2f Sweeper::normalize(sf::Vector2f & source)
 		return sf::Vector2f(source.x / length, source.y / length);
 	else
 		return source;
+}
+float Sweeper::Distance(float x1, float y1,float x2, float y2)
+{
+	float distanceOfVision = sqrt((x2- x1)*(x2 - x1) + (y2 - y1)*(y2 - y1));
+	return distanceOfVision;
 }

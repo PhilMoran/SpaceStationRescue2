@@ -18,6 +18,7 @@ public:
 	void Wander();
 	void Collected(Sprite & Player);
 	void Update();
+	void Seek();
 	bool alive = true;
 	float rand_FloatRange(float a,float b);
 	float RadsToDegrees(float rads);
