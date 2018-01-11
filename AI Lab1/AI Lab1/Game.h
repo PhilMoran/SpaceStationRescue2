@@ -1,4 +1,4 @@
-// author Peter Lowe
+
 #ifndef GAME
 #define GAME
 
@@ -7,6 +7,7 @@
 #include "Worker.h"
 #include "Predator.h"
 #include "Sweeper.h"
+#include "Nest.h"
 
 class Game
 {
@@ -61,6 +62,7 @@ private:
 	Worker *workerFive = new Worker(Vector2f(1970, 1170));
 	Predator *predOne = new Predator(Vector2f(0, 0));
 	Sweeper *sweepOne = new Sweeper(Vector2f(1500, 300));
+	Nest *nest = new Nest(Vector2f(2000, 1000));
 	
 };
 

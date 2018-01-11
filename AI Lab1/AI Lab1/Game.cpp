@@ -1,4 +1,4 @@
-// author Peter Lowe
+
 
 #include "Game.h"
 #include <math.h>
@@ -31,6 +31,7 @@ void Game::run()
 	{
 				
 		PlayerMovement();
+		nest->Update(playerSprite);
 		processEvents(); // as many as possible
 
 		timeSinceLastUpdate += clock.restart();
@@ -175,7 +176,7 @@ void Game::render()
 	predOne->Draw(m_window);
 
 	sweepOne->Draw(m_window);
-
+	nest->Draw(m_window);
 	m_window.draw(playerSprite);
 	m_window.draw(workerText);
 	m_window.display();

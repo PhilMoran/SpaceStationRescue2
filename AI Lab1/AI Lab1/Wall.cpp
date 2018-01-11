@@ -11,7 +11,7 @@ Wall::Wall(sf::Vector2f position)
 	m_WallSprite.setTextureRect(m_WallSource);
 	m_WallSprite.setPosition(m_WallPosition);
 
-	if (!m_WallTexture.loadFromFile("ASSETS\\IMAGES\\tempWall.png"))
+	if (!m_WallTexture.loadFromFile("ASSETS\\IMAGES\\Wall.png"))
 	{
 		// error...
 	}
