@@ -35,6 +35,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Nest.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="Predator.h" />
     <ClInclude Include="Sweeper.h" />

@@ -9,6 +9,7 @@
 #include "Sweeper.h"
 #include "Nest.h"
 #include "PowerUp.h"
+#include "ParticleSystem.h"
 
 class Game
 {
@@ -54,6 +55,8 @@ private:
 	sf::Text workerText;
 
 	int workerNum = 0;
+	int width = 500;
+	int height = 500;
 
 	Level level;
 	Worker *workerOne = new Worker(Vector2f(300, 300));
@@ -65,6 +68,7 @@ private:
 	Sweeper *sweepOne = new Sweeper(Vector2f(1500, 300));
 	Nest *nest = new Nest(Vector2f(2000, 1000));
 	PowerUp *powerUp = new PowerUp(Vector2f(2500, 1500));
+
 	
 };
 

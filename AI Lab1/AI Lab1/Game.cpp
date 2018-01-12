@@ -6,14 +6,16 @@
 #include <iostream>
 
 using namespace std;
+ParticleSystem particles(2000);
 
 Game::Game() :
 	m_window{ sf::VideoMode(1280,1280), "SpaceStationRescue2" },
 	m_exitGame{false} //when true game will exit
+
 {
 	LoadTextures(); // load font 
 	LoadSprites(); // load texture
-	
+
 }
 
 
@@ -24,15 +26,20 @@ Game::~Game()
 
 void Game::run()
 {
+
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	sf::Time timePerFrame = sf::seconds(1.f / 60.f); // 60 fps
 	while (m_window.isOpen())
 	{
-				
+		sf::Time elapsed = clock.restart();
+		particles.update(elapsed);
+
 		PlayerMovement();
 		nest->Update(playerSprite);
 		powerUp->Update(playerSprite);
+		particles.setEmitter(playerSprite.getPosition());
+		
 		processEvents(); // as many as possible
 
 		timeSinceLastUpdate += clock.restart();
@@ -67,6 +74,7 @@ void Game::processEvents()
 		}
 		if (sf::Event::KeyPressed == event.type) //user key press
 		{
+			//particles.setEmitter(playerSprite.getPosition());
 			if (sf::Keyboard::Escape == event.key.code)
 			{
 				m_exitGame = true;
@@ -101,6 +109,9 @@ void Game::processEvents()
 					playerVelocity.x = -1.0f;
 				}
 			}
+			// make the particle system emitter follow the mouse
+			sf::Vector2i mouse = sf::Mouse::getPosition(m_window);
+			//particles.setEmitter(playerSprite.getPosition());
 
 		}
 		
@@ -182,8 +193,12 @@ void Game::render()
 
 	sweepOne->Draw(m_window);
 	nest->Draw(m_window);
+	//particles->draw()
 	m_window.draw(playerSprite);
 	m_window.draw(workerText);
+
+	m_window.draw(particles);
+	
 	m_window.display();
 	
 }
@@ -316,7 +331,7 @@ void Game::checkAIAlive()
 		sweepOne->Wander();
 	}
 	predOne->Seek(playerSprite);
-	workerText.setString("Workers Rescued = " + std::to_string(workerNum) + "/5");
+	workerText.setString("Workers Rescued = " + std::to_string(workerNum)+"/5");
 	if (powerUp->radar == false)
 	{
 		workerText.setPosition(playerSprite.getPosition().x - 300, playerSprite.getPosition().y - 500);
