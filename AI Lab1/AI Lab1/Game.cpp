@@ -32,6 +32,7 @@ void Game::run()
 				
 		PlayerMovement();
 		nest->Update(playerSprite);
+		powerUp->Update(playerSprite);
 		processEvents(); // as many as possible
 
 		timeSinceLastUpdate += clock.restart();
@@ -162,11 +163,15 @@ void Game::render()
 
 	sf::View MyView;
 	MyView.setCenter(playerSprite.getPosition().x, playerSprite.getPosition().y);
-	//MyView.zoom(2);
+	if (powerUp->radar == true)
+	{
+		MyView.zoom(2);
+	}
 	m_window.setView(MyView);
 	
 
 	level.Draw(&m_window);
+	powerUp->Draw(m_window);
 	workerOne->Draw(m_window);
 	workerTwo->Draw(m_window);
 	workerThree->Draw(m_window);
@@ -311,8 +316,17 @@ void Game::checkAIAlive()
 		sweepOne->Wander();
 	}
 	predOne->Seek(playerSprite);
-	workerText.setString("Workers Rescued = " + std::to_string(workerNum)+"/5");
-	workerText.setPosition(playerSprite.getPosition().x - 300, playerSprite.getPosition().y - 500);
+	workerText.setString("Workers Rescued = " + std::to_string(workerNum) + "/5");
+	if (powerUp->radar == false)
+	{
+		workerText.setPosition(playerSprite.getPosition().x - 300, playerSprite.getPosition().y - 500);
+		workerText.setScale(1, 1);
+	}
+	else if (powerUp->radar == true)
+	{
+		workerText.setPosition(playerSprite.getPosition().x - 500, playerSprite.getPosition().y - 1000);
+		workerText.setScale(2, 2);
+	}
 }
 sf::Vector2f Game::normalize(sf::Vector2f & source)
 {

@@ -8,6 +8,7 @@
 #include "Predator.h"
 #include "Sweeper.h"
 #include "Nest.h"
+#include "PowerUp.h"
 
 class Game
 {
@@ -63,6 +64,7 @@ private:
 	Predator *predOne = new Predator(Vector2f(0, 0));
 	Sweeper *sweepOne = new Sweeper(Vector2f(1500, 300));
 	Nest *nest = new Nest(Vector2f(2000, 1000));
+	PowerUp *powerUp = new PowerUp(Vector2f(2500, 1500));
 	
 };
 

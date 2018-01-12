@@ -1,2 +1,6 @@
-﻿  AI Lab1.vcxproj -> C:\Users\gameuser\Documents\SpaceMaster\SpaceStationRescue2\AI Lab1\Debug\AI Lab1.exe
+﻿  Game.cpp
+c:\users\gameuser\documents\spacemaster\spacestationrescue2\ai lab1\ai lab1\game.cpp(88): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\gameuser\documents\spacemaster\spacestationrescue2\ai lab1\ai lab1\game.cpp(98): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\gameuser\documents\spacemaster\spacestationrescue2\ai lab1\ai lab1\game.cpp(137): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  AI Lab1.vcxproj -> C:\Users\gameuser\Documents\SpaceMaster\SpaceStationRescue2\AI Lab1\Debug\AI Lab1.exe
   AI Lab1.vcxproj -> C:\Users\gameuser\Documents\SpaceMaster\SpaceStationRescue2\AI Lab1\Debug\AI Lab1.pdb (Partial PDB)
